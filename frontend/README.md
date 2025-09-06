@@ -57,37 +57,38 @@ Role-based SPA for **Admins** and **Students** with a modern UI, analytics, and 
 ## Project Structure
 
 frontend/
-├─ public/
-│ ├─ logo.svg
-│ ├─ login-hero.jpg
-├─ src/
-│ ├─ layouts/
-│ │ └─ MainLayout.tsx
-│ ├─ pages/
-│ │ ├─ Login.tsx
-│ │ ├─ Dashboard.tsx # admin
-│ │ ├─ Courses.tsx # admin
-│ │ ├─ Students.tsx # admin
-│ │ ├─ Enrollments.tsx # admin
-│ │ ├─ Results.tsx # admin analytics
-│ │ └─ portal/
-│ │ ├─ StudentDashboard.tsx
-│ │ ├─ StudentCourses.tsx
-│ │ └─ StudentEnrollments.tsx
-│ ├─ shared/
-│ │ ├─ api.ts # getJSON/postJSON helpers read VITE_API
-│ │ └─ auth.ts # localStorage { role, email }
-│ ├─ App.tsx # nested routes + guards
-│ ├─ main.tsx
-│ └─ index.css # Tailwind + component classes
-├─ index.html
-├─ tailwind.config.ts
-├─ tsconfig.json
-├─ postcss.config.js
-├─ package.json
-├─ package-lock.json
-├─ vite.config.ts
-└─ .env.example
+├─ public/                 # Static assets served directly
+│  ├─ logo.svg             # Project logo
+│  └─ login-hero.jpg       # Hero image for login page
+├─ src/                    # Source code
+│  ├─ layouts/             # Layout components
+│  │  └─ MainLayout.tsx    # Main layout wrapper for pages
+│  ├─ pages/               # Application pages
+│  │  ├─ Login.tsx         # Login page
+│  │  ├─ Dashboard.tsx     # Admin dashboard
+│  │  ├─ Courses.tsx       # Admin courses management
+│  │  ├─ Students.tsx      # Admin student management
+│  │  ├─ Enrollments.tsx   # Admin enrollment management
+│  │  ├─ Results.tsx       # Admin analytics/results
+│  │  └─ portal/           # Student portal pages
+│  │     ├─ StudentDashboard.tsx
+│  │     ├─ StudentCourses.tsx
+│  │     └─ StudentEnrollments.tsx
+│  ├─ shared/              # Shared utilities
+│  │  ├─ api.ts            # API helpers (getJSON/postJSON)
+│  │  └─ auth.ts           # LocalStorage-based auth helpers
+│  ├─ App.tsx              # Nested routes and guards
+│  ├─ main.tsx             # App entry point
+│  └─ index.css            # Tailwind + global styles
+├─ index.html              # HTML template
+├─ tailwind.config.ts      # Tailwind CSS configuration
+├─ tsconfig.json           # TypeScript configuration
+├─ postcss.config.js       # PostCSS configuration
+├─ package.json            # NPM dependencies and scripts
+├─ package-lock.json       # Locked package versions
+├─ vite.config.ts          # Vite configuration
+└─ .env.example            # Sample environment variables
+
 
 ## Environment Setup
 
