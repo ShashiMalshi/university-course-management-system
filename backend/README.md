@@ -1,4 +1,4 @@
-# UniCMS — Backend (Spring Boot)
+# UniCMS — University Course Management System - Backend (Spring Boot)
 
 REST API for the **University Course Management System**.  
 Provides CRUD for Courses & Students, Student self-enrollment, and Results/Grades.
