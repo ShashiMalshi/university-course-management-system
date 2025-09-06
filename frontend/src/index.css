@@ -1,0 +1,175 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #root { height: 100%; }
+body { @apply bg-gray-50 text-gray-900; }
+.dark body { @apply bg-slate-950 text-slate-100; }
+
+@layer components {
+  .input { @apply border border-gray-300 dark:border-slate-700 rounded-xl px-3.5 py-2.5 bg-white dark:bg-slate-900 outline-none focus:ring-2 focus:ring-primary-500; }
+  .input-sm { @apply input py-2 text-sm; }
+
+  .btn { @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 font-medium transition active:scale-[.98]; }
+  .btn-primary { @apply btn bg-primary-600 text-white hover:bg-primary-700 shadow-soft; }
+  .btn-secondary { @apply btn bg-secondary-600 text-white hover:bg-secondary-700 shadow-soft; }
+  .btn-accent { @apply btn bg-accent-600 text-white hover:bg-accent-700 shadow-soft; }
+  .btn-ghost { @apply btn border border-gray-300 dark:border-slate-700 bg-white/60 dark:bg-slate-900 hover:bg-white dark:hover:bg-slate-800; }
+  .btn-danger { @apply btn bg-danger-600 text-white hover:bg-danger-700 shadow-soft; }
+  .icon-btn { @apply p-2 rounded-lg text-gray-600 hover:text-primary-600 dark:text-slate-400 dark:hover:text-primary-300; }
+
+  .card { @apply bg-white dark:bg-slate-900 p-5 rounded-2xl border border-gray-100 dark:border-slate-800 shadow-soft hover:shadow-elevated transition; }
+
+  .navlink { @apply flex items-center gap-3 px-4 py-2 rounded-xl transition; }
+  .navlink-active { @apply bg-white text-primary-800 dark:bg-slate-900 dark:text-primary-300 shadow; }
+  .navlink-inactive { @apply text-white/90 hover:bg-white/10; }
+
+  .avatar { @apply w-9 h-9 rounded-full bg-primary-100 text-primary-700 dark:bg-primary-900/40 dark:text-primary-300 flex items-center justify-center font-bold; }
+  .badge { @apply text-xs px-2 py-0.5 rounded-full border; }
+  .badge-info { @apply badge bg-primary-50 text-primary-700 border-primary-100 dark:bg-primary-900/30 dark:border-primary-900/40 dark:text-primary-300; }
+  .badge-ok { @apply badge bg-emerald-50 text-emerald-700 border-emerald-100 dark:bg-emerald-900/30 dark:border-emerald-900/40 dark:text-emerald-300; }
+  .badge-warn { @apply badge bg-amber-50 text-amber-700 border-amber-100 dark:bg-amber-900/30 dark:border-amber-900/40 dark:text-amber-300; }
+  .badge-danger { @apply badge bg-danger-50 text-danger-700 border-danger-100 dark:bg-danger-900/30 dark:border-danger-900/40 dark:text-danger-300; }
+
+  .table { @apply w-full bg-white dark:bg-slate-900 rounded-2xl shadow-soft overflow-hidden border border-gray-100 dark:border-slate-800; }
+  .table thead { @apply bg-gray-50 dark:bg-slate-800/60 text-gray-600 dark:text-slate-300 text-sm; }
+  .table th, .table td { @apply px-4 py-3 border-b border-gray-100 dark:border-slate-800; }
+  .table tbody tr:hover { @apply bg-gray-50/60 dark:bg-slate-800/40; }
+
+  .section-title { @apply text-2xl font-semibold mb-6; }
+  .page-header { @apply flex items-center justify-between gap-4 mb-5; }
+
+  .field { @apply relative; }
+  .field > .icon { @apply absolute inset-y-0 left-3 flex items-center pointer-events-none; }
+  .field > input { @apply pl-10 w-full; }
+
+  .modal-backdrop { @apply fixed inset-0 bg-black/40 backdrop-blur z-40; }
+  .modal { @apply fixed inset-0 z-50 flex items-center justify-center p-6; }
+  .modal-card { @apply card w-full max-w-lg; }
+
+  .toast-wrap { @apply fixed top-4 right-4 z-50 space-y-3; }
+  .toast { @apply rounded-xl px-4 py-3 shadow-soft border; }
+  .toast-success { @apply toast bg-emerald-50 text-emerald-800 border-emerald-200 dark:bg-emerald-900/30 dark:text-emerald-200 dark:border-emerald-900/40; }
+  .toast-error { @apply toast bg-danger-50 text-danger-800 border-danger-200 dark:bg-danger-900/30 dark:text-danger-200 dark:border-danger-900/50; }
+
+  /* New: reusable gradient */
+  .brand-gradient {
+    background: linear-gradient(180deg, #7209b7 0%, #4361ee 50%, #4cc9f0 100%);
+  }
+  /* ===== Login background & effects ===== */
+
+  .login-bg{
+    background:
+      radial-gradient(1200px 600px at -10% -10%, rgba(114,9,183,.18), transparent 60%),
+      radial-gradient(900px 480px at 110% -10%, rgba(247,37,133,.20), transparent 60%),
+      radial-gradient(900px 520px at 50% 120%, rgba(76,201,240,.22), transparent 60%),
+      linear-gradient(180deg, #f8fbff 0%, #eef2ff 30%, #f9f7ff 100%);
+  }
+
+  .grid-fade{
+    --line: rgba(2,6,23,0.15);
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 32px 32px, 32px 32px;
+    mask-image: radial-gradient(1200px 600px at 50% 0%, black 50%, transparent 100%);
+    -webkit-mask-image: radial-gradient(1200px 600px at 50% 0%, black 50%, transparent 100%);
+    opacity: .35;
+  }
+  .dark .grid-fade{ --line: rgba(255,255,255,0.12); opacity: .28; }
+
+  .glass-card{
+    @apply card;
+    background: rgba(255,255,255,0.68);
+    border-color: rgba(255,255,255,0.55);
+    backdrop-filter: blur(18px) saturate(120%);
+  }
+  .dark .glass-card{
+    background: rgba(2,6,23,0.55);
+    border-color: rgba(148,163,184,0.15);
+    backdrop-filter: blur(18px) saturate(120%);
+  }
+
+  /* Orbs */
+  .orbs { overflow: hidden; }
+  .orb{
+    position: absolute; border-radius: 9999px; filter: blur(24px); opacity: .5;
+    animation: float 18s ease-in-out infinite;
+  }
+  .orb-rose{ width: 320px; height: 320px; left: -60px; top: 10%; background: radial-gradient(circle at 30% 30%, #f72585, #b5179e); animation-delay: -4s; }
+  .orb-blue{ width: 380px; height: 380px; right: -80px; top: -40px; background: radial-gradient(circle at 30% 30%, #4361ee, #3f37c9); animation-delay: -9s; }
+  .orb-cyan{ width: 260px; height: 260px; right: 15%; bottom: -60px; background: radial-gradient(circle at 30% 30%, #4cc9f0, #4895ef); animation-delay: -14s; }
+
+  @keyframes float{
+    0%,100%{ transform: translateY(0px) translateX(0px) scale(1); }
+    50%{ transform: translateY(-18px) translateX(8px) scale(1.03); }
+  }
+
+  /* --- Auth --- */
+  .auth-hero{
+    position: relative;
+    background: linear-gradient(140deg, #3f37c9 0%, #4361ee 45%, #4cc9f0 100%);
+    color: #fff;
+  }
+  .dark .auth-hero{
+    background: linear-gradient(140deg, #170541 0%, #102ca8 45%, #095c75 100%);
+  }
+
+  .auth-grid{
+    position:absolute; inset:0; opacity:.20;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.14) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.14) 1px, transparent 1px);
+    background-size: 28px 28px;
+    mask-image: radial-gradient(1100px 600px at 30% 10%, black 60%, transparent 100%);
+    -webkit-mask-image: radial-gradient(1100px 600px at 30% 10%, black 60%, transparent 100%);
+  }
+
+  .auth-blob{ position:absolute; border-radius:9999px; filter: blur(28px); opacity:.45; animation: float 18s ease-in-out infinite; }
+  .blob-rose{ width:340px; height:340px; left:-80px; top:-60px; background: radial-gradient(circle at 30% 30%, #f72585, #b5179e); animation-delay:-4s; }
+  .blob-blue{ width:420px; height:420px; right:-120px; top:-80px; background: radial-gradient(circle at 30% 30%, #4361ee, #3f37c9); animation-delay:-9s; }
+  .blob-cyan{ width:300px; height:300px; right:10%; bottom:-80px; background: radial-gradient(circle at 30% 30%, #4cc9f0, #4895ef); animation-delay:-14s; }
+
+  @keyframes float { 0%,100%{ transform:translateY(0) translateX(0) scale(1); } 50%{ transform:translateY(-16px) translateX(8px) scale(1.02);} }
+
+  .login-card{
+    @apply card;
+    background: rgba(255,255,255,0.9);
+    border-color: rgba(2,6,23,0.08);
+    box-shadow: 0 20px 50px rgba(2,6,23,0.12);
+    backdrop-filter: blur(12px);
+  }
+  .dark .login-card{
+    background: rgba(2,6,23,0.65);
+    border-color: rgba(148,163,184,0.15);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+  }
+
+  /* gradient border frame for the hero image */
+.image-frame{
+  position: relative;
+  padding: 3px;
+  border-radius: 1.25rem;
+  background: linear-gradient(135deg, #f72585 0%, #4361ee 50%, #4cc9f0 100%);
+  box-shadow: 0 22px 60px rgba(2,6,23,0.25);
+}
+.image-frame > img{ display:block; border-radius: 1rem; }
+.image-frame > div{ pointer-events: none; }
+
+/* Right half background for login */
+
+.login-form-bg{
+  background-color: #d9e8ea;
+}
+.dark .login-form-bg{
+  background-color: #cfe2e5; /* slightly deeper in dark mode */
+}
+
+
+/* Form card stays readable on any background */
+.login-card{
+  @apply card bg-white/95 dark:bg-slate-900/75 border border-white/60 dark:border-slate-800 backdrop-blur;
+}
+
+
+}

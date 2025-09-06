@@ -1,0 +1,25 @@
+# Node / React
+node_modules/
+dist/
+build/
+.vite/
+*.log
+
+# Env files
+.env
+.env.local
+.env.*.local
+frontend/node_modules
+frontend/dist
+frontend/.env
+frontend/.env.production
+
+# Java / Maven
+target/
+backend/target
+
+# OS / IDE
+.DS_Store
+*.iml
+.idea/
+.vscode/
