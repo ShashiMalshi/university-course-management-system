@@ -10,7 +10,11 @@ import java.util.*;
 
 @RestController
 @RequestMapping("/api/v1")
-@CrossOrigin(origins = {"http://localhost:5173","http://localhost:3000"})
+@CrossOrigin(origins = {
+    "http://localhost:5173",               // optional, local dev
+    "http://localhost:3000",               // optional, local dev
+    "https://ucms-frontend.onrender.com"   // deployed frontend
+})
 public class ApiController {
 
   private final CourseRepository courses;
