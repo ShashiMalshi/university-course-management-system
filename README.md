@@ -22,55 +22,52 @@ ucms/
 │ ├─ src/main/resources/ # application.yml, etc.
 │ └─ README.md # Backend-specific docs
 ├─ frontend/ # Vite + React app
-│ ├─ public/ # logo.svg, login-hero.jpg, SPA rewrites
-│ ├─ src/ # pages, layouts, shared helpers
+│ ├─ public/ # Static assets
+│ ├─ src/ # Pages, layouts, shared helpers
 │ └─ README.md # Frontend-specific docs
-└─ README.md # (this file)
+└─ README.md # This file
 
-## 3) Quickstart (Local Development)
+
+---
+
+## 3. Quickstart (Local Development)
 
 ### 3.1 Backend
 
-1. Open a terminal and run:
-   ```bash
-   cd backend
-   mvn spring-boot:run
+```bash
+cd backend
+mvn spring-boot:run
 
-2. Verify API is running:
 
+Verify API is running:
 GET http://localhost:8080/api/v1/courses
 
 3.2 Frontend
-
-1. Open a second terminal and run:
-
 cd frontend
 npm install
 npm run dev
 
-2. Open the app:
 
-http://localhost:5173
+Open the app: http://localhost:5173
 
-4) Environment Configuration
-
+4. Environment Configuration
 4.1 Frontend
 
-   1. Create frontend/.env for local dev:
+Local development: create frontend/.env
 
-      VITE_API=http://localhost:8080/api/v1
-
-
-   2. (Production) Create frontend/.env.production with your public API URL:
-
-      VITE_API=https://api.your-domain.com/api/v1
+VITE_API=http://localhost:8080/api/v1
 
 
-   3. Ensure CORS on the backend allows:
+Production: create frontend/.env.production
 
-      http://localhost:5173 (dev)
+VITE_API=https://api.your-domain.com/api/v1
 
-      your deployed frontend origin (production)
+
+Ensure backend CORS allows:
+
+http://localhost:5173 (dev)
+
+your deployed frontend origin (production)
 
 4.2 Backend (optional overrides in application.yml)
 
@@ -80,65 +77,210 @@ server.port=8080
 spring.h2.console.enabled=true
 spring.jpa.hibernate.ddl-auto=update
 
-Add your frontend origins to @CrossOrigin at controller or via a global CORS bean.
 
-5) What’s Included (Functional Overview)
+Add frontend origins via @CrossOrigin at controller or global CORS bean.
 
-Admin ( /admin/* ):
-   Courses & Students CRUD
-   View Enrollments
-   Assign Results/Grades
-Student ( /portal/* ):
-   Browse courses and self-enroll
-   My Enrollments with grades
+5. Functional Overview
+
+Admin (/admin/*):
+
+Courses & Students CRUD
+
+View Enrollments
+
+Assign Results/Grades
+
+Student (/portal/*):
+
+Browse courses & self-enroll
+
+My Enrollments with grades
+
 Login Page:
-   Left: brand + illustration; Right: role-based sign-in card
-   Student email picker (demo auth for MVP)
-Results Analytics (Admin):
-   Filters: Course, Grade, Student email
-   KPIs: Average GPA, Pass rate, Totals, Courses covered
-   Charts: Grade distribution, Pass vs Fail
-   Results table + CSV export
 
-6) Verify Core Flows (Smoke Test)
+Left: brand + illustration
+
+Right: role-based sign-in card
+
+Student email picker (demo auth for MVP)
+
+Results Analytics (Admin):
+
+Filters: Course, Grade, Student email
+
+KPIs: Average GPA, Pass rate, Totals, Courses covered
+
+Charts: Grade distribution, Pass vs Fail
+
+Results table + CSV export
+
+6. Verify Core Flows (Smoke Test)
 
 Login
-   Open /login
-   Toggle role (Student/Admin)
-   Student → pick an email → Continue → lands on /portal
-   Admin → Continue → lands on /admin
+
+Open /login
+
+Toggle role (Student/Admin)
+
+Student → pick an email → lands on /portal
+
+Admin → Continue → lands on /admin
 
 Admin Console
-   Create a course (code unique; credit 1–6)
-   Create a student
-   Check Enrollments list (should reflect changes)
-   Assign a result to an enrollment (A–F) and see it in Results
 
-Stdent Portal
-   Browse courses → Enroll
-   Check My Enrollments; view grades (if assigned)
+Create a course (unique code; credit 1–6)
+
+Create a student
+
+Check Enrollments list
+
+Assign a result to an enrollment (A–F)
+
+Student Portal
+
+Browse courses → Enroll
+
+Check My Enrollments; view grades
 
 Results Analytics
-   Open Admin → Results
-   Try filters (course/grade/search)
-   Export CSV and open it
 
-7) Build & Preview (Production Bundle)
+Open Admin → Results
 
+Try filters (course/grade/search)
+
+Export CSV
+
+7. Build & Preview (Production Bundle)
 7.1 Backend JAR
-
-Build:
-   cd backend
-   mvn -q -DskipTests package
-
-Run:
-   java -jar target/*.jar
+cd backend
+mvn -q -DskipTests package
+java -jar target/*.jar
 
 7.2 Frontend Dist
+cd frontend
+npm run build
+npm run preview   # simulates production routing/assets
 
-Build:
-   cd frontend
-   npm run build
+8. Deployment (Render — Docker Web Services)
 
-Preview (simulates production routing/assets):
-   npm run preview
+Monorepo with two Render Web Services:
+
+Backend at backend/ (Spring Boot)
+
+Frontend at frontend/ (Vite build served by Nginx)
+
+Both use Dockerfiles in their respective folders.
+
+8.1 Backend on Render (Docker)
+
+Push repo to GitHub.
+
+Render → New → Web Service → Connect repo → select UCMS repo.
+
+Advanced:
+
+Root Directory: backend
+
+Environment: Docker
+
+Service Name: ucms-backend
+
+Deploy → Note backend URL, e.g., https://ucms-backend.onrender.com
+
+Ensure CORS includes frontend origin.
+
+8.2 Frontend on Render (Docker)
+
+Render → New → Web Service → Connect repo.
+
+Advanced:
+
+Root Directory: frontend
+
+Environment: Docker
+
+Service Name: ucms-frontend
+
+Build Args:
+
+Name: VITE_API
+Value: https://ucms-backend.onrender.com/api/v1
+
+
+Deploy → Verify /login, /portal, /admin flows, charts, CSV.
+
+8.3 Optional: One-click Blueprint
+services:
+  - type: web
+    name: ucms-backend
+    env: docker
+    rootDir: backend
+    plan: free
+    autoDeploy: true
+
+  - type: web
+    name: ucms-frontend
+    env: docker
+    rootDir: frontend
+    plan: free
+    autoDeploy: true
+    buildCommand: ""
+    startCommand: ""
+    envVars:
+      - key: VITE_API
+        value: https://ucms-backend.onrender.com/api/v1
+
+9. Minimal API Map (reference)
+
+Courses
+
+GET    /api/v1/courses
+POST   /api/v1/admin/courses
+PUT    /api/v1/admin/courses/{id}
+DELETE /api/v1/admin/courses/{id}
+
+
+Students
+
+GET    /api/v1/students
+POST   /api/v1/admin/students
+PUT    /api/v1/admin/students/{id}
+DELETE /api/v1/admin/students/{id}
+
+
+Enrollments
+
+GET  /api/v1/enrollments?studentEmail=
+POST /api/v1/enrollments?studentEmail=&courseId=
+
+
+Results
+
+GET  /api/v1/results
+POST /api/v1/results?enrollmentId=&grade=
+
+10. Pre-Deployment Checklist
+
+Frontend
+
+VITE_API points to backend public URL
+
+Build succeeds; pages load; deep links work
+
+Login/Admin/Student flows OK; analytics render; CSV downloads
+
+Backend
+
+Entities & constraints OK (unique course codes, emails, enrollment)
+
+Status codes: 201 on create, 409 on duplicate
+
+CORS includes frontend origin
+
+JAR builds locally and service responds
+
+Docs & Assets
+
+.env* not committed
+
+login-hero.jpg optimized
