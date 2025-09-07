@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://${dpg-d2ugp0juibrs73flj36g-a}:${5432}/${ucms}
+    username: ${ucms_user}
+    password: ${EEwdnW11LucA2tit0GDIeIAqhdvR7S7p}
+    driverClassName: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+
+server:
+  port: ${PORT:8080}
